@@ -1,2 +1,11 @@
-<h1>Sample App</h1>
-<p>This is my home page!</p>
+<div class="center hero-unit">
+  <h1>Welcome to the HSYLC Conference Tool!</h1>
+  <h2>
+  	For conference staff, SLs, TA/AAs; please <%= link_to "sign in", '#' %> to use features.<br>
+  	If you do not have an account, sign up below!
+  </h2>
+
+  <%= link_to "Sign up now!", '#', class: "btn btn-large btn-primary" %>
+</div>
+
+<%= link_to image_tag("rails.png", alt: "Rails"), 'http://rubyonrails.org/' %>
