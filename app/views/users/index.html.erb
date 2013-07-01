@@ -1,0 +1,10 @@
+<% provide(:title, "List of participants and staff") %>
+<h1>List of participants & staff</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+	<%= render @users %>
+</ul>
+
+<%= will_paginate %>

@@ -25,8 +25,20 @@ describe User do
   it { should respond_to(:password_confirmation) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:authenticate) }
+  it { should respond_to(:admin) }
+  it { should respond_to(:authenticate) }
 
   it { should be_valid } # i.e. @user.should be_valid
+  it { should_not be_admin }
+
+  describe "with admin attribute set to 'true'" do
+    before do
+      @user.save!
+      @user.toggle!(:admin)
+    end
+
+    it { should be_admin }
+  end
 
   describe "when name is not present" do
   	before { @user.name = "" }
@@ -122,6 +134,14 @@ describe User do
   describe "remember token" do
     before { @user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe "accessible attributeS" do
+    it "should not allow access to admin" do
+      expect do
+        User.new(admin: @user.admin)
+      end.to raise_error(ActiveModel::MassAssignmentSecurity::Error)
+    end
   end
 
 end
