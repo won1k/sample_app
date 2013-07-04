@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 
   def announcements
     # Feed of announcements from administrative users (staff)
-    Micropost.where("user_id = ?")
+    Micropost.from_admins
   end
 
   def following?(other_user)
