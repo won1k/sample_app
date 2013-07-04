@@ -1,0 +1,6 @@
+<% if @announcements.any? %>
+	<ol class="microposts">
+		<%= render partial: 'shared/feed_item', collection: @announcements %>
+	</ol>
+	<%= will_paginate @announcements %>
+<% end %>
