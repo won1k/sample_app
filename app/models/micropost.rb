@@ -25,7 +25,7 @@ class Micropost < ActiveRecord::Base
   end
 
   def self.from_admins
-  	admin_ids = "SELECT id FROM users WHERE admin = true"
+  	admin_ids = "SELECT id FROM users WHERE admin = 1"
   	where("user_id IN (#{admin_ids})")
   end
 
