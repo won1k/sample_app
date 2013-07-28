@@ -1,0 +1,33 @@
+<% provide(:title, 'Courses') %>
+<h1>Submit course list</h1>
+<% if !(current_user.course1) || !(current_user.course2)  || !(current_user.course3)  || !(current_user.course4)   %>
+	<div class="row">
+		<div class="span6 offset3">
+			<%= form_for(@user) do |f| %>
+				<%= render 'shared/error_messages', object: f.object %>
+
+				<% if current_user.site == 'Beijing' %>
+					<% @courses = [' ', 'An Analytical Approach to Public Health','Know the Facts: Sexually Transmitted Infections (including HIV)','Emotions','The Sleeping Brain','Design Thinking: Making Things People Want','American Culture: The Tale of Three Cities','Neuroeconomics: Understanding and Leveraging Human Irrationality','The Science of Happiness','Democratizing Latin America','Science Fiction','Crazed Minds: The Neurophysiology of Drugs and Disorders','Creative Writing: Turning the Stories of Your Life into Fiction','The Evolution of the Startup','Health and Public Policy: How Status, Genetics, and Medicine Determine Health',"The American Frontier: Major Events in America's Westward Expansion",'Analyzing Drama','Education and the Mind','Macroeconomics: The Financial Crisis of 2008','The Human Brain: Exploring Vision, Language, and Emotion','The Art of Storytelling','Behavioral Economics: Understanding Irrationality','The Flu, The Fly, and The Worm: Global Health Matters','Modern Art: Cubism, Abstraction, Pop','Ethics of Journalism: The Fourth Estate in the 21st Century','Human Sexuality','Mathematics With(out) Numbers', 'Topics in Technology Today','The Lucifer Effect: Analyzing Personality through the Stanford Prison Experiment and Its Implications','Changing Your World Through Social Entrepreneurship: Theory, Practice, and Impact for Young Leaders'] %>
+				<% else %>
+					<% @courses = [' ', 'Chocolate', "Stem Cells: What They Are and Why They Matter",'The Science of Groups','How the Environment and Other Factors Helped Shape Three World Cultures','The Economics of Growth','Reflecting on Your Life','Service Leadership','The Power is Yours: Harness Your Own Energy','How to Solve an Environmental Crisis', 'Public Speaking, Poetry, & Spoken Word','Building a Better Criminal Justice System: An Investigation of How the American Criminal Justice Could be Improved','Bubbles Burst: Understanding the 2008 Financial Crisis','An Introduction to the History of Ballet and Modern Dance and its Evolution in the United States','Performing Race, Gender, and Sexuality','Jazz: American Cultural Rhythms', 'Leadership & Negotiation','Visual Neurobiology & Optical Illusions', 'A Journey Into Gender: Exploring Our Own Identities','Introduction to Film and Video','Current Issues in Female Representation in the United States','Intro to Comparative Politics: Examining Economic Development, Democracy, and Social Revolution','Free and Independent States: The Origins of the American Revolution','Going Green Globally: The History of Human Environment Interactions','The Ethics and Politics of International Trade', 'Egyptian History and Archeology',"From James Joyce to Public Service", 'East to West: Psychology Across Cultures','Immigration and its Impact on America'] %>
+				<% end %>
+
+				<%= f.label :course1, "Course 1" %>
+				<%= f.select :course1, @courses %>
+
+				<%= f.label :course2, "Course 2" %>
+				<%= f.select :course2, @courses %>
+
+				<%= f.label :course3, "Course 3" %>
+				<%= f.select :course3, @courses %>
+
+				<%= f.label :course4, "Course 4" %>
+				<%= f.select :course4, @courses %>
+
+				<%= f.submit "Save courses", class: "btn btn-large btn-primary" %>
+			<% end %>
+		</div>
+	</div>
+<% else %>
+	<p>You have successfully entered your course list!</p>
+<% end %>

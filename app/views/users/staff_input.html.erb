@@ -1,0 +1,23 @@
+<% provide(:title, 'Input grades') %>
+<h1>Input grades</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for @user, :url => input_grades_user_path(@user) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.label :grade1, "Grade for #{@user.course1}" %>
+			<%= f.select :grade1, options_for_select([["A", 4], ["B", 3], ["C", 2], ["D", 1], ["F", 0]], @user.grade1) %>
+
+			<%= f.label :grade2, "Grade for #{@user.course2}" %>
+			<%= f.select :grade2, options_for_select([["A", 4], ["B", 3], ["C", 2], ["D", 1], ["F", 0]], @user.grade2) %>
+
+			<%= f.label :grade3, "Grade for #{@user.course3}" %>
+			<%= f.select :grade3, options_for_select([["A", 4], ["B", 3], ["C", 2], ["D", 1], ["F", 0]], @user.grade3) %>
+
+			<%= f.label :grade4, "Grade for #{@user.course4}" %>
+			<%= f.select :grade4, options_for_select([["A", 4], ["B", 3], ["C", 2], ["D", 1], ["F", 0]], @user.grade4) %>
+
+			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

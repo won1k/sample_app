@@ -10,10 +10,27 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :integer          default(0)
+#  house           :string(255)
+#  site            :string(255)
+#  national_id     :integer
+#  dorm            :string(255)
+#  phone           :integer
+#  course1         :string(255)
+#  course2         :string(255)
+#  course3         :string(255)
+#  course4         :string(255)
+#  rec1            :text
+#  rec2            :text
+#  grade1          :integer
+#  grade2          :integer
+#  grade3          :integer
+#  grade4          :integer
 #
 
 class User < ActiveRecord::Base
-  attr_accessible(:email, :name, :password, :password_confirmation)
+  attr_accessible(:email, :name, :password, :password_confirmation, 
+    :house, :site, :national_id, :course1, :course2, :course3, :course4, 
+    :dorm, :phone, :grade1, :grade2, :grade3, :grade4, :rec1, :rec2, :rec1name, :rec2name)
   has_secure_password
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
@@ -30,18 +47,37 @@ class User < ActiveRecord::Base
   validates(:email, presence: true, 
   	format: { with: VALID_EMAIL_REGEX }, 
   	uniqueness: { case_sensitive: false })
-  validates(:password, presence: true, length: { minimum: 6 })
-  validates :password_confirmation, presence: true
+  validates(:password, presence: true, length: { minimum: 6 }, on: :create)
+  validates(:password_confirmation, presence: true, on: :create)
 
   after_validation { self.errors.messages.delete(:password_digest) }
 
+  SITES = ['Beijing','Shanghai']
+  HOUSES = ['Aequitas','Amicitia','Animus','Dignitas','Fidus',
+    'Inspiratio','Libertas','Lux','Pax','Spes','Virtus','Vis']
+  DORMS = ['Sample Dorm 1','Sample Dorm 2','Sample Dorm 3','Sample Dorm 4']
+
   def feed
-    Micropost.from_users_followed_by(self)
+    @followed_ids = Relationship.where(follower_id: self.id).each do |followed_id| end
+    @users = User.where(id: @followed_ids, site: self.site)
+    Micropost.where(id: @users)
   end
 
   def announcements
     # Feed of announcements from administrative users (staff)
-    Micropost.from_admins
+    @users = User.where(admin: 1, site: self.site)
+    Micropost.where(id: @users)
+  end
+
+  def house_feed
+    # Feed from house participants only
+    @users = User.where(house: self.house, site: self.site)
+    Micropost.where(id: @users)
+  end
+
+  def self.search(search, user)
+    search_condition = "%" + search + "%"
+    find(:all, conditions: ['(name LIKE ? OR house LIKE ? OR email LIKE ? OR national_id LIKE ?) AND site LIKE ?', search_condition, search_condition, search_condition, search_condition, User.find(user).site])
   end
 
   def following?(other_user)

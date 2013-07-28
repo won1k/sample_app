@@ -24,9 +24,14 @@ class Micropost < ActiveRecord::Base
   		user_id: user.id)
   end
 
-  def self.from_admins
+  def self.from_admins(user)
   	admin_ids = "SELECT id FROM users WHERE admin = 1"
   	where("user_id IN (#{admin_ids})")
+  end
+
+  def self.from_users_in_house(user)
+  	house_user_ids = "SELECT id FROM users WHERE house = '#{user.house}'"
+  	where("user_id IN (#{house_user_ids})", user_id: user.id)
   end
 
 end

@@ -1,7 +1,8 @@
 SampleApp::Application.routes.draw do
   resources :users do
     member do
-      get :following, :followers
+      get :following, :followers, :staff_input, :recommendations
+      put :input_grades, :input_recommendations
     end
   end
 
@@ -24,6 +25,12 @@ SampleApp::Application.routes.draw do
   match '/about', to: 'static_pages#about'
 
   match '/contact', to: 'static_pages#contact'
+
+  match '/house', to: 'static_pages#house'
+
+  match '/courses', to: 'users#courses'
+
+  match '/search', to: 'users#search'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

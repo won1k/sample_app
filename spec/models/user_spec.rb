@@ -10,6 +10,21 @@
 #  password_digest :string(255)
 #  remember_token  :string(255)
 #  admin           :integer          default(0)
+#  house           :string(255)
+#  site            :string(255)
+#  national_id     :integer
+#  dorm            :string(255)
+#  phone           :integer
+#  course1         :string(255)
+#  course2         :string(255)
+#  course3         :string(255)
+#  course4         :string(255)
+#  rec1            :text
+#  rec2            :text
+#  grade1          :integer
+#  grade2          :integer
+#  grade3          :integer
+#  grade4          :integer
 #
 
 require 'spec_helper'

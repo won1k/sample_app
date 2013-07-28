@@ -9,18 +9,31 @@ end
 
 def make_users
 	admin = User.create!(name: "Example User", email: "example@example.com",
-		password: "foobar", password_confirmation: "foobar")
+		password: "foobar", password_confirmation: "foobar", house: "Pax", 
+		site: "Beijing", national_id: 99999999, 
+		dorm: "Sample Dorm", phone: 2013102360)
 	admin2 = User.create!(name: "Admin User", email: "admin@example.com",
-		password: "foobar", password_confirmation: "foobar")
+		password: "foobar", password_confirmation: "foobar", house: "Aequitas", 
+		site: "Beijing", national_id: 99999999, 
+		dorm: "Sample Dorm", phone: 2013102360)
 		
 	admin.toggle!(:admin)
 	admin2.toggle!(:admin)
 
-	99.times do |n|
+	98.times do |n|
 		name = Faker::Name.name
+		national_id = 1010101010
 		email = "example-#{n+1}@example.com"
 		password = "password"
-		User.create!(name: name, email: email, password: password, password_confirmation: password)
+		site = "Shanghai"
+		house = "Pax"
+		dorm = "Sample Dorm 2"
+		course1 = "Sample Course 1"
+		course2 = "Sample Course 2"
+		course3 = "Sample Course 3"
+		course4 = "Sample Course 4"
+		phone = 2019999999
+		User.create!(name: name, email: email, password: password, password_confirmation: password, house: house, site: site)
 	end
 end
 

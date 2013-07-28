@@ -1,0 +1,25 @@
+<% provide(:title, 'Submit recommendations') %>
+<h1>Submit recommendations</h1>
+<div class="row">
+	<div class="span6 offset3">
+		<%= form_for @user, :url => input_recommendations_user_path(@user) do |f| %>
+			<%= render 'shared/error_messages', object: f.object %>
+
+			<%= f.label :rec1name, "Recommender 1 Name" %>
+			<%= f.text_field :rec1name %>
+
+			<%= f.label :rec1, "Recommendation 1" %>
+			<%= f.text_area :rec1, size: "27x7" %>
+
+			<br><br><br>
+
+			<%= f.label :rec2name, "Recommender 2 Name" %>
+			<%= f.text_field :rec2name %>
+
+			<%= f.label :rec2, "Recommendation 2" %>
+			<%= f.text_area :rec2, size: "27x7" %>
+
+			<%= f.submit "Save changes", class: "btn btn-large btn-primary" %>
+		<% end %>
+	</div>
+</div>

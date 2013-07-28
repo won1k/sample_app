@@ -9,6 +9,9 @@
 			<%= f.label :name %>
 			<%= f.text_field :name %>
 
+			<%= f.label :national_id, "National ID" %>
+			<%= f.text_field :national_id %>
+
 			<%= f.label :email %>
 			<%= f.text_field :email %>
 
@@ -17,6 +20,18 @@
 
 			<%= f.label :password_confirmation, "Confirmation" %>
 			<%= f.password_field :password_confirmation %>
+
+			<%= f.label :phone, "Phone Number" %>
+			<%= f.text_field :phone %>
+
+			<%= f.label :site, "Conference Site" %>
+			<%= f.select :site, User::SITES %>
+
+			<%= f.label :house %>
+			<%= f.select :house, User::HOUSES %>
+
+			<%= f.label :dorm %>
+			<%= f.select :dorm, User::DORMS %>
 
 			<%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
 		<% end %>
