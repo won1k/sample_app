@@ -1,6 +1,7 @@
 namespace :db do
 	desc "Fill database with sample data"
 	task populate: :environment do
+		Faker::Config.locale = :en
 		make_users
 		make_microposts
 		make_relationships
@@ -20,13 +21,29 @@ def make_users
 	admin.toggle!(:admin)
 	admin2.toggle!(:admin)
 
-	98.times do |n|
+	30.times do |n|
+		name = Faker::Name.name
+		national_id = 1010101010
+		email = "example-#{n+1}@example.com"
+		password = "password"
+		site = "Beijing"
+		house = "Pax"
+		dorm = "Sample Dorm 2"
+		course1 = "Sample Course 1"
+		course2 = "Sample Course 2"
+		course3 = "Sample Course 3"
+		course4 = "Sample Course 4"
+		phone = 2019999999
+		User.create!(name: name, email: email, password: password, password_confirmation: password, house: house, site: site)
+	end
+
+	30.times do |n|
 		name = Faker::Name.name
 		national_id = 1010101010
 		email = "example-#{n+1}@example.com"
 		password = "password"
 		site = "Shanghai"
-		house = "Pax"
+		house = "Aequitas"
 		dorm = "Sample Dorm 2"
 		course1 = "Sample Course 1"
 		course2 = "Sample Course 2"
