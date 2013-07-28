@@ -40,7 +40,7 @@ def make_users
 	30.times do |n|
 		name = Faker::Name.name
 		national_id = 1010101010
-		email = "example-#{n+1}@example.com"
+		email = "example-#{n+31}@example.com"
 		password = "password"
 		site = "Shanghai"
 		house = "Aequitas"
