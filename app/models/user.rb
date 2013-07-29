@@ -58,21 +58,26 @@ class User < ActiveRecord::Base
   DORMS = ['Sample Dorm 1','Sample Dorm 2','Sample Dorm 3','Sample Dorm 4']
 
   def feed
-    @followed_ids = Relationship.where(follower_id: self.id).each do |followed_id| end
-    @users = User.where(id: @followed_ids, site: self.site)
-    Micropost.where(id: @users)
+    followed_ids = "SELECT followed_id FROM relationships WHERE follower_id = :user_id"
+    # @users = User.where(id: @followed_ids, site: self.site).each do |id| end
+    user_ids = "SELECT id FROM users WHERE id IN (#{followed_ids}) AND site = :user_site"
+    Micropost.where("user_id IN (#{user_ids}) OR user_id = :user_id", user_id: self.id, user_site: self.site)
   end
 
   def announcements
     # Feed of announcements from administrative users (staff)
-    @users = User.where(admin: 1, site: self.site)
-    Micropost.where(id: @users)
+    # @users = User.where(admin: 1, site: self.site)
+    # Micropost.where(id: @users)
+    user_ids = "SELECT id FROM users WHERE admin = 1 AND site = :user_site"
+    Micropost.where("user_id IN (#{user_ids})", user_site: self.site)
   end
 
   def house_feed
     # Feed from house participants only
-    @users = User.where(house: self.house, site: self.site)
-    Micropost.where(id: @users)
+    # @users = User.where(house: self.house, site: self.site)
+    # Micropost.where(id: @users)
+    user_ids = "SELECT id FROM users WHERE house = :user_house AND site = :user_site"
+    Micropost.where("user_id IN (#{user_ids})", user_house: self.house, user_site: self.site)
   end
 
   def self.search(search, user)

@@ -17,11 +17,16 @@ def make_users
 		password: "foobar", password_confirmation: "foobar", house: "Aequitas", 
 		site: "Beijing", national_id: 99999999, 
 		dorm: "Sample Dorm", phone: 2013102360)
+	admin3 = User.create!(name: "Third User", email: "third@example.com",
+		password: "foobar", password_confirmation: "foobar", house: "Lux", 
+		site: "Shanghai", national_id: 99999999, 
+		dorm: "Sample Dorm", phone: 2019992999)
 		
 	admin.toggle!(:admin)
 	admin2.toggle!(:admin)
+	admin3.toggle!(:admin)
 
-	30.times do |n|
+	15.times do |n|
 		name = Faker::Name.name
 		national_id = 1010101010
 		email = "example-#{n+1}@example.com"
@@ -37,7 +42,7 @@ def make_users
 		User.create!(name: name, email: email, password: password, password_confirmation: password, house: house, site: site)
 	end
 
-	30.times do |n|
+	15.times do |n|
 		name = Faker::Name.name
 		national_id = 1010101010
 		email = "example-#{n+31}@example.com"
@@ -55,7 +60,7 @@ def make_users
 end
 
 def make_microposts
-	users = User.all(limit: 6) # Use only first 6 to conserve time
+	users = User.all(limit: 20) # Use only first 6 to conserve time
 	50.times do # Make 50 microposts
 		content = Faker::Lorem.sentence(5)
 		users.each { |user| user.microposts.create!(content: content) }

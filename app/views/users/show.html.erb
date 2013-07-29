@@ -9,7 +9,7 @@
 			</h1>
 			<p>
 				<%= @user.house + " House" %><br>
-				<% if current_user[:admin] != 0 %>
+				<% if @user[:admin] != 0 %>
 					<%= link_to "Grades", staff_input_user_path(@user) %> |
 					<%= link_to "Recommendations", recommendations_user_path(@user) %>
 				<% end %>
