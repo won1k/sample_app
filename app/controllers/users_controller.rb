@@ -66,16 +66,7 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params[:user].has_key?("email")
-      if @user.update_attributes(params[:user])
-        # Handle a successful update.
-        flash[:success] = "Profile updated."
-        sign_in @user
-        redirect_to @user
-      else
-        render 'edit'
-      end
-    elsif params[:user].has_key?("course1")
+    if params[:user].has_key?("course1")
       if @user.update_attributes(params[:user])
         # Handle a successful update.
         flash[:success] = "Course list updated."
@@ -83,24 +74,6 @@ class UsersController < ApplicationController
         redirect_to(courses_path)
       else
         render 'courses'
-      end
-    elsif params[:user].has_key?("grade1")
-      if @user.update_attributes(params[:id])
-        # Handle a successful update.
-        flash[:success] = "Grades updated."
-        sign_in @user
-        redirect_to(root_path)
-      else
-        render 'input'
-      end
-    elsif params[:user].has_key?("rec1")
-      if @user.update_attributes(params[:id])
-        # Handle a successful update.
-        flash[:success] = "Recommendations submitted."
-        sign_in @user
-        redirect_to(recommendations_path)
-      else
-        render 'recommendations'
       end
     else
       if @user.update_attributes(params[:user])
