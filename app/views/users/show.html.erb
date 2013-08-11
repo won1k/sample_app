@@ -9,13 +9,23 @@
 			</h1>
 			<p>
 				<%= @user.house + " House" %><br>
-				<% if @user[:admin] != 0 %>
+				<% if current_user.admin == 1 %>
 					<%= link_to "Grades", staff_input_user_path(@user) %> |
 					<%= link_to "Recommendations", recommendations_user_path(@user) %>
 				<% end %>
 			</p>
 		<section>
 			<%= render 'shared/stats' %>
+		</section>
+		<section>
+			<p>
+				<% if current_user.admin == 1 %>
+					National ID: <% @user.national_id %>
+					Dorm: <% @user.dorm %>
+					Phone: <% @user.phone %>
+					Email: <% @user.email %>
+				<% end %>
+			</p>
 		</section>
 	</aside>
 	<div class="span8">

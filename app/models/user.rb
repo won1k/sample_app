@@ -49,6 +49,7 @@ class User < ActiveRecord::Base
   	uniqueness: { case_sensitive: false })
   validates(:password, presence: true, length: { minimum: 6 }, on: :create)
   validates(:password_confirmation, presence: true, on: :create)
+  validates(:site, presence: true, on: :create)
 
   after_validation { self.errors.messages.delete(:password_digest) }
 
@@ -82,7 +83,7 @@ class User < ActiveRecord::Base
 
   def self.search(search, user)
     search_condition = "%" + search + "%"
-    find(:all, conditions: ['(name LIKE ? OR house LIKE ? OR email LIKE ? OR national_id LIKE ?) AND site LIKE ?', search_condition, search_condition, search_condition, search_condition, User.find(user).site])
+    find(:all, conditions: ['(name LIKE CAST(? AS TEXT) OR house LIKE CAST(? AS TEXT) OR email LIKE CAST(? AS TEXT) OR national_id LIKE CAST(? AS INT)) AND site LIKE CAST(? AS TEXT)', search_condition, search_condition, search_condition, search_condition, User.find(user).site])
   end
 
   def following?(other_user)
